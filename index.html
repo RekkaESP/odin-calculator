@@ -1,13 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
 </head>
+
 <body>
-<link rel="stylesheet" type="text/css" href="./styles/style.css">
-<script type="text/javascript" src="./js/script.js"></script>
-    
+    <link rel="stylesheet" type="text/css" href="./styles/style.css">
+    <script type="text/javascript" src="./js/script.js" defer></script>
+
+    <div id="header">
+        <h1>Calculator</h1>
+    </div>
+    <div id="content">
+        <div id="container-calc">
+            <span class="display">Placeholder</span>
+            <ul class="line">
+                <button class="calculator operation" value="%">%</button>
+                <button class="calculator operation" value="CE">CE</button>
+                <button class="calculator operation" value="C">C</button>
+                <button class="calculator operation" value="del">Delete</button>
+            </ul>
+            <ul class="line">
+                <button class="calculator operation" value="fraction">1/x</button>
+                <button class="calculator operation" value="square">x²</button>
+                <button class="calculator operation" value="sqrt">sqrt(x)</button>
+                <button class="calculator operation" value="div">/</button>
+            </ul>
+            <ul class="line">
+                <button class="calculator number" value="7">7</button>
+                <button class="calculator number" value="9">8</button>
+                <button class="calculator number" value="9">9</button>
+                <button class="calculator operation" value="mult">X</button>
+            </ul>
+            <ul class="line">
+                <button class="calculator number" value="4">4</button>
+                <button class="calculator number" value="5">5</button>
+                <button class="calculator number" value="6">6</button>
+                <button class="calculator operation" value="minus">-</button>
+            </ul>
+            <ul class="line">
+                <button class="calculator number" value="1">1</button>
+                <button class="calculator number" value="2">2</button>
+                <button class="calculator number" value="3">3</button>
+                <button class="calculator operation" value="4">+</button>
+            </ul>
+            <ul class="line">
+                <button class="calculator number" value="sign">+/-</button>
+                <button class="calculator number" value="0">0</button>
+                <button class="calculator number" value="decimal">.</button>
+                <button class="calculator operation" value="calc">=</button>
+            </ul>
+        </div>
+
+    </div>
+    </div>
+    <div id="footer">
+        <span>Created by <a href="https://github.com/RekkaESP" target="_blank" rel="noreferrer">Rekka</a></span>
+        <span><a href="https://www.theodinproject.com/about" target="_blank" rel="noreferrer"> The Odin
+                Project</a></span>
+    </div>
 </body>
+
 </html>
