@@ -15,11 +15,12 @@ operationButtons.forEach((btn) => {
     btn.addEventListener('click', function () {
             console.log('operator set to : '+btn.value);
             operator = btn.value;
-            if(operator === 'C' || operator === 'decimal'){
+            if(operator === 'C' || operator === 'decimal' || operator === 'sign'){
                 handleOperation();
             }
             else if(operator != '' && getOperandsCheck()){
-                handleOperation();
+                //handleOperation();
+                operand_2 = '0';
                 if(editingFirstOp) {
                     show(operand_2);
                     editingFirstOp = false;
@@ -77,15 +78,33 @@ function operate(operator, op1, op2) {
     console.log('a : ' + a + " b : " + b + ' op : ' + operator);
     let res = operand_1;
     switch (operator) {
-        case "sqrt":
-            res = Math.sqrt(a);
-            return res;
+        case "sign":
+            //If number is not 0 then switch sign
+            if(editingFirstOp){
+                if(operand_1 != '0'){
+                if (!(operand_1.includes('-'))) operand_1 = '-' + operand_1;
+                else operand_1 = operand_1.slice(1);
+                }
+                return operand_1;
+            }else{
+                if(operand_1 != '0'){
+                if (!(operand_2.includes('-'))) operand_2 = '-' + operand_2;
+                else operand_2 = operand_2.slice(1);
+            }
+                return operand_1;
+            }
             break;
         case "/":
+            //Returns division once both numbers have been set
+            if(editingFirstOp && operand_2 === '0'){
+                return operand_1;
+            }else{
             res = a / b;
             return (b != 0) ? a / b : "Self Destruct ON";
+            }
             break;
         case "mult":
+            //Returns multiplication once both numbers have been set
             if(editingFirstOp && operand_2 === '0'){
                 return operand_1;
             }else{
@@ -104,12 +123,14 @@ function operate(operator, op1, op2) {
             break;
 
         case "C":
+            //Clear
             operand_1 = "0";
             operand_2 = "0";
             return 0;
             break;
 
         case "decimal":
+            //Adds a decimal point to the number once
             if(editingFirstOp){
                 if (!(operand_1.includes('.'))) operand_1 += '.';
                 return operand_1;
@@ -129,7 +150,7 @@ function handleOperation(){
  let res = operate(operator, operand_1, operand_2);
  //Return to first operand after operation
  if (operator != 'decimal') editingFirstOp = true;
- operand_1 = res;
+ operand_1 = res.toString();
  if(operator === 'C'){
      operand_1 = '0';
      operand_2 = '0';
