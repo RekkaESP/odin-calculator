@@ -2,10 +2,12 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0;
 }
 #header{
     display: flex;
     min-height: 80px;
+    background-color: green;
 }
 #content{
     display: flex;
@@ -17,24 +19,58 @@ body{
 }
 #container-calc{
     display: flex;
+    padding: 10px;
+    min-width: 400px;
+
     flex-direction: column;
     align-items: center;
-    width: 500px;
-    aspect-ratio: 1/1;
-    
+    background-color: gray;
+    max-width: fit-content;
+    max-height: fit-content;
 }
 .line{
     display: flex;
-    padding: 0;
+    flex: 1 1 400px;
+    align-items: flex-start;
     justify-content: center;
+    max-height: 100px;
+    aspect-ratio: 4/1;
+    padding: 0;
     gap: 0px;
     margin: 0;
+
 }
 .calculator{
-    width: 50px;
-    height: 50px;
+    flex: 1 1 50px;
+    aspect-ratio: 1/1;
+    padding: 0;
+    width: auto;
+}
+
+.calculator.operation.equal{
+    flex-basis: 100px;
+    width: auto;
+    height: 100%;
+    aspect-ratio: 2/1;
+
+}
+#display{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    min-width: 100%;
+    min-height: 70px;
+    margin-bottom: 10px;
+
+    font-size: 36px;
+    font-weight: bold;
+
+    background-color: lightgray;
 }
 #footer{
+    background-color: gray;
     display: flex;
+    padding: 0;
     min-height: 80px;
 }
