@@ -9,20 +9,33 @@ const display = document.getElementById('display');
 let operand_1 = '0';
 let operand_2 = '0';
 let operator = '';
+let lastOperator = '';
 let editingFirstOp = true;
+let evaluated = false;
 
 operationButtons.forEach((btn) => {
     btn.addEventListener('click', function () {
             console.log('operator set to : '+btn.value);
+            lastOperator = operator;
             operator = btn.value;
+            //Handle operators that directly change operand value (eg. sign)
             if(operator === 'C' || operator === 'decimal' || operator === 'sign'){
                 handleOperation();
             }
+            //Check if operand is valid and start editing second one
             else if(operator != '' && getOperandsCheck()){
-                //handleOperation();
+                console.log(evaluated);
+                if(!evaluated && lastOperator != ''){
+                    operator = lastOperator;
+                    //show(operand_1);
+                    handleOperation();
+                    
+                }
+                operator = btn.value;
                 operand_2 = '0';
+                
                 if(editingFirstOp) {
-                    show(operand_2);
+                    //show(operand_2);
                     editingFirstOp = false;
                 }
             }
@@ -33,16 +46,15 @@ operationButtons.forEach((btn) => {
 
 numberButtons.forEach((btn) => {
     btn.addEventListener('click', function () {
-        console.log(editingFirstOp);
         if (editingFirstOp) {
             if (operand_1 === '0' || Number.isNaN(operand_1) || operand_1 == '') operand_1 = btn.value;
-            else operand_1 += btn.value
-            console.log('op1 ' + operand_1);
+            else operand_1 += btn.value;
+            evaluated = false;
             show(operand_1);
         } else {
             if (operand_2 === '0' || Number.isNaN(operand_2) || operand_2 == '') operand_2 = btn.value;
-            else operand_2 += btn.value
-            console.log('op2 ' + operand_2);
+            else operand_2 += btn.value;
+            evaluated = false;
             show(operand_2);
         }
     });
@@ -113,13 +125,21 @@ function operate(operator, op1, op2) {
             }
             break;
         case "-":
+            if(editingFirstOp && operand_2 === '0'){
+                return operand_1;
+            }else{
             res = a - b;
             return res;
+            }
             break;
 
         case "+":
+            if(editingFirstOp && operand_2 === '0'){
+                return operand_1;
+            }else{
             res = a + b;
             return res;
+            }
             break;
 
         case "C":
@@ -149,7 +169,11 @@ function operate(operator, op1, op2) {
 function handleOperation(){
  let res = operate(operator, operand_1, operand_2);
  //Return to first operand after operation
- if (operator != 'decimal') editingFirstOp = true;
+ if (operator != 'decimal'){
+    editingFirstOp = true;
+    evaluated = true;
+    lastOperator = '';
+ } 
  operand_1 = res.toString();
  if(operator === 'C'){
      operand_1 = '0';
@@ -157,6 +181,7 @@ function handleOperation(){
      operator = '';
       //Return to first operand after operation
  editingFirstOp = true;
+
  }
  show(operand_1);
 }
