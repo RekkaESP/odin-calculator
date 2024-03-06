@@ -1,3 +1,6 @@
+*{
+    font-family: monospace;
+}
 body{
     display: flex;
     flex-direction: column;
@@ -47,7 +50,7 @@ body{
     width: auto;
 }
 
-.calculator.operation.equal{
+.calculator.equal{
     flex-basis: 100px;
     width: auto;
     height: 100%;
@@ -58,11 +61,13 @@ body{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    box-sizing: border-box;
 
     min-width: 100%;
     min-height: 70px;
     margin-bottom: 10px;
-
+    padding-right: 5px;
+    padding-left: 5px;
     font-size: 36px;
     font-weight: bold;
 
