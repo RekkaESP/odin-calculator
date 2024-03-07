@@ -4,8 +4,6 @@ const equalButton = document.querySelector('.calculator.equal');
 const delButton = document.querySelector('.calculator.delete');
 const display = document.getElementById('display');
 
-//18 Digit max
-
 let operand_1 = '0';
 let operand_2 = '0';
 let operator = '';
@@ -13,9 +11,9 @@ let lastOperator = '';
 let editingFirstOp = true;
 let evaluated = false;
 
+//Click event handlers
 operationButtons.forEach((btn) => {
     btn.addEventListener('click', function () {
-            console.log('operator set to : '+btn.value);
             lastOperator = operator;
             operator = btn.value;
             //Handle operators that directly change operand value (eg. sign)
@@ -24,7 +22,6 @@ operationButtons.forEach((btn) => {
             }
             //Check if operand is valid and start editing second one
             else if(operator != '' && getOperandsCheck()){
-                console.log(evaluated);
                 if(!evaluated && lastOperator != ''){
                     operator = lastOperator;
                     //show(operand_1);
@@ -39,9 +36,7 @@ operationButtons.forEach((btn) => {
                     editingFirstOp = false;
                 }
             }
-
         }
-
     )});
 
 numberButtons.forEach((btn) => {
@@ -59,6 +54,7 @@ numberButtons.forEach((btn) => {
         }
     });
 });
+
 delButton.addEventListener('click', function(){
     if(editingFirstOp){
         operand_1 = operand_1.toString().slice(0, -1);
@@ -76,6 +72,36 @@ delButton.addEventListener('click', function(){
 });
 
 equalButton.addEventListener('click', handleOperation);
+
+//Keydown event handlers
+
+document.addEventListener('keydown', function(e){
+    let key = e.key;
+    let btn;
+    if(key != 'Enter') key = filterKeypress(key);123
+    switch (key){
+        case '':
+
+            break;
+
+        case '.':
+            btn = document.querySelector('.calculator.operation.decimal');
+            btn.dispatchEvent(new Event('click'));
+        break;
+
+        case 'Enter':
+            equalButton.dispatchEvent(new Event('click'));
+            break;
+
+        default:
+            btn = document.querySelector('.calculator.number[value="' + key +'"]');
+            btn.dispatchEvent(new Event('click'));
+            break;
+    }
+
+})
+
+
 
 function show(element) {
     if(element.length > 18) element = Math.round(parseFloat(element)).toString().slice(0,18);
@@ -186,6 +212,7 @@ function handleOperation(){
  }
  show(operand_1);
 }
+
 function getOperandsCheck(){
     //Returns true if both numbers are valid
     let op1 = false;
@@ -193,4 +220,11 @@ function getOperandsCheck(){
     if(!(typeof operand_1 === undefined) && operand_1 != '') op1 = true;
     if(!(typeof operand_2 === undefined) && operand_2 != '') op2 = true;
     return op1 && op2;
+}
+
+function filterKeypress(key){
+    //Returns key if its accepted or an empty string if it isnt
+    const regex = /^[0-9.]*$/;
+
+    return regex.test(key) ? key : '';
 }
