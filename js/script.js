@@ -78,6 +78,7 @@ delButton.addEventListener('click', function(){
 equalButton.addEventListener('click', handleOperation);
 
 function show(element) {
+    if(element.length > 18) element = Math.round(parseFloat(element)).toString().slice(0,18);
     display.textContent = element;
 }
 
@@ -87,8 +88,8 @@ function operate(operator, op1, op2) {
     let b = parseFloat(op2);
     if (a === undefined) a = parseInt(op1);
     if (b === undefined) b = parseInt(op2);
-    console.log('a : ' + a + " b : " + b + ' op : ' + operator);
     let res = operand_1;
+
     switch (operator) {
         case "sign":
             //If number is not 0 then switch sign
